@@ -10,3 +10,4 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: docker-host
+wlcp-api-url: localhost:8082
