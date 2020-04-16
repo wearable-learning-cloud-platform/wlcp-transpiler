@@ -3,12 +3,15 @@ package org.wlcp.wlcptranspiler.dto;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "gameId")
 public class GameDto {
-	
+	public GameDto() { }
 	public String gameId;
 	public Integer teamCount;
 	public Integer playersPerTeam;
@@ -41,6 +44,7 @@ public class GameDto {
 	
 	@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property="stateType", defaultImpl=State.class)
 	@JsonSubTypes({@Type(value = StartState.class, name="START_STATE"), @Type(value = OutputState.class, name = "OUTPUT_STATE")})
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "stateId")
 	public static class State {
 		public State() { }
 		public String stateId;
@@ -53,10 +57,11 @@ public class GameDto {
 	}
 	
 	public static class StartState extends State {
-		
+		public StartState() { }
 	}
 	
 	public static class OutputState extends State {
+		public OutputState() { }
 		public String description;
 		public Map<String, String> displayText;
 		public Map<String, PictureOutput> pictureOutputs;
@@ -81,7 +86,9 @@ public class GameDto {
 		}
 	}
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "connectionId")
 	public static class Connection {
+		public Connection() { }
 		public String connectionId;
 		public State connectionFrom;
 		public State connectionTo;
@@ -98,6 +105,7 @@ public class GameDto {
 		}
 	}
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "transitionId")
 	public static class Transition {
 		public String transitionId;
 		public Connection connection;
