@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wlcp.wlcptranspiler.dto.GameDto;
 import org.wlcp.wlcptranspiler.feignclient.GameFeignClient;
+import org.wlcp.wlcptranspiler.security.SecurityConstants;
 import org.wlcp.wlcptranspiler.serivce.impl.JavaScriptTranspilerServiceImpl;
 
 @Controller
@@ -23,7 +24,7 @@ public class TranspilerController {
 
 	@GetMapping(value="/transpileGame", produces="application/javascript")
 	public ResponseEntity<String> transpile(@RequestParam("gameId") String gameId) {
-		GameDto gameDto = gameFeignClient.getGame(gameId);
+		GameDto gameDto = gameFeignClient.getGame(gameId, SecurityConstants.JWT_TOKEN);
 		return new ResponseEntity<String>(javaScriptTranspilerServiceImpl.transpile(gameDto), HttpStatus.OK);
 	}
 }
