@@ -1,10 +1,15 @@
 package org.wlcp.wlcptranspiler.transpiler.helper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
+import org.wlcp.wlcptranspiler.dto.GameDto.SequenceButtonPress;
+import org.wlcp.wlcptranspiler.dto.GameDto.SingleButtonPress;
 import org.wlcp.wlcptranspiler.dto.GameDto.State;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 
@@ -38,8 +43,39 @@ public class TranspilerHelpers {
 		return null;
 	}
 	
+	public static Map<Connection, Transition> createEmptyTransition() {
+		Transition transition = new Transition();
+		transition.singleButtonPresses = new HashMap<String, SingleButtonPress>();
+		transition.sequenceButtonPresses = new HashMap<String, SequenceButtonPress>();
+		transition.keyboardInputs = new HashMap<String, KeyboardInput>();
+		HashMap<Connection, Transition> connectionTransitions = new HashMap<Connection, Transition>(); 
+		connectionTransitions.put(new Connection(), transition);
+		return connectionTransitions;
+	}
+	
 	public static boolean stateContainsScope(String scope, OutputState state) {
-		if(state.getDisplayText().containsKey(scope)) {
+		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean transitionContainsScope(String scope, Transition transition) {
+		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean stateContainsNoScopes(OutputState state) {
+		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean transitionConatainsNoScopes(Transition transition) {
+		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0) {
 			return true;
 		}
 		return false;

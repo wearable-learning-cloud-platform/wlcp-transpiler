@@ -15,9 +15,11 @@ import org.wlcp.wlcptranspiler.transpiler.helper.TranspilerHelpers;
 import org.wlcp.wlcptranspiler.transpiler.state.DisplayPhotoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.DisplayTextStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.IStateType;
+import org.wlcp.wlcptranspiler.transpiler.state.NoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.StateType;
 import org.wlcp.wlcptranspiler.transpiler.transition.ITransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.KeyboardInputTransitionType;
+import org.wlcp.wlcptranspiler.transpiler.transition.NoTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.SequenceButtonPressTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.SingleButtonPressTransitionType;
 
@@ -61,8 +63,10 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	}
 	
 	private void SetupTypes() {
+		stateTypes.add(new NoStateType());
 		stateTypes.add(new DisplayTextStateType());
 		stateTypes.add(new DisplayPhotoStateType());
+		transitionTypes.add(new NoTransitionType());
 		transitionTypes.add(new SingleButtonPressTransitionType());
 		transitionTypes.add(new SequenceButtonPressTransitionType());
 		transitionTypes.add(new KeyboardInputTransitionType());
@@ -124,6 +128,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	private void GenerateNoConnections(State state) {
 		GenerateMethodSignature(state);
 		GenerateOutputState(state);
+		GenerateTransition(TranspilerHelpers.createEmptyTransition());
 		stringBuilder.append("   " + "},\n\n");
 	}
 	
