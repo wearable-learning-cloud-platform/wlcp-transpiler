@@ -135,7 +135,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	private void GenerateSingleConnectionNoTransition(State state, Connection connection) {
 		GenerateMethodSignature(state);
 		GenerateOutputState(state);
-		stringBuilder.append("      " + "this.state = states." + state.stateType.name() + "_" + (outputStates.indexOf(connection.connectionTo) + 1) + ";\n");
+		stringBuilder.append("      " + "this.state = states." + connection.connectionTo.stateType.name() + "_" + (outputStates.indexOf(connection.connectionTo) + 1) + ";\n");
 		stringBuilder.append("   " + "},\n\n");
 	}
 	
