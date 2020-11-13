@@ -1,9 +1,11 @@
 package org.wlcp.wlcptranspiler.transpiler.transition;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 import org.wlcp.wlcptranspiler.transpiler.helper.TranspilerHelpers;
 import org.wlcp.wlcptranspiler.transpiler.state.StateType;
@@ -11,7 +13,7 @@ import org.wlcp.wlcptranspiler.transpiler.state.StateType;
 public class NoTransitionType extends TransitionType implements ITransitionType {
 
 	@Override
-	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions) {
+	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		StringBuilder stringBuilder = new StringBuilder();	
 		for (Entry<Connection, Transition> entry : connectionTransitions.entrySet()) {
 			if(TranspilerHelpers.transitionConatainsNoScopes(entry.getValue()) && scope == "Game Wide") {

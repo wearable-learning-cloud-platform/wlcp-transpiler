@@ -1,6 +1,7 @@
 package org.wlcp.wlcptranspiler.transpiler.steps;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.StartState;
+import org.wlcp.wlcptranspiler.dto.GameDto.StateType;
 
 public class GenerateNameSpaceAndVariablesStep implements ITranspilerStep {
 
@@ -19,7 +20,7 @@ public class GenerateNameSpaceAndVariablesStep implements ITranspilerStep {
 		stringBuilder.append("   " + "player : 0,\n");
 		stringBuilder.append("   " + "playerVM : null,\n\n");
 		stringBuilder.append("   " + "running : true,\n");
-		stringBuilder.append("   " + "state : states." + startState.getStateId() + ",\n");
+		stringBuilder.append("   " + "state : states." + StateType.START_STATE + "_0" + ",\n");
 		stringBuilder.append("   " + "oldState : null,\n\n");
 		return stringBuilder.toString();
 	}

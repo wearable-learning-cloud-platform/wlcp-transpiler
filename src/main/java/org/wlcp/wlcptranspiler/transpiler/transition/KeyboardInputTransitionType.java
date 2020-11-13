@@ -1,19 +1,21 @@
 package org.wlcp.wlcptranspiler.transpiler.transition;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 import org.wlcp.wlcptranspiler.transpiler.helper.TranspilerHelpers;
 
 public class KeyboardInputTransitionType extends TransitionType implements ITransitionType {
 	
 	@Override
-	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions) {
+	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		StringBuilder stringBuilder = new StringBuilder();
-		Map<String, String> keyboardInputMap = GenerateKeyboardInputMap(scope, connectionTransitions);
+		Map<String, String> keyboardInputMap = GenerateKeyboardInputMap(scope, connectionTransitions, outputStates);
 		if(keyboardInputMap.size() > 0) {
 			stringBuilder.append(GenerateTransitionConditional(scope));
 			stringBuilder.append(GenerateTransitionKeyboardInput(scope, keyboardInputMap));
@@ -22,12 +24,12 @@ public class KeyboardInputTransitionType extends TransitionType implements ITran
 		return stringBuilder.toString();
 	}
 	
-	public Map<String, String> GenerateKeyboardInputMap(String scope, Map<Connection, Transition> connectionTransitions) {
+	public Map<String, String> GenerateKeyboardInputMap(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		Map<String, String> keyboardInputMap = new HashMap<String, String>();
 		for(Entry<Connection, Transition> entry : connectionTransitions.entrySet()) {
 			if(entry.getValue().getKeyboardInputs().containsKey(scope)) {
 				for(String keyboardInput : entry.getValue().getKeyboardInputs().get(scope).getKeyboardInputs()) {
-					keyboardInputMap.put(keyboardInput, entry.getKey().getConnectionTo().getStateId());
+					keyboardInputMap.put(keyboardInput, entry.getKey().getConnectionTo().stateType.name() + "_" + (outputStates.indexOf(entry.getKey().getConnectionTo()) + 1));
 				}
 			}
 		}

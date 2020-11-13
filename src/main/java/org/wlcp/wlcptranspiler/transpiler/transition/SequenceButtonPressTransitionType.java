@@ -1,18 +1,20 @@
 package org.wlcp.wlcptranspiler.transpiler.transition;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 
 public class SequenceButtonPressTransitionType extends TransitionType implements ITransitionType {
 	
 	@Override
-	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions) {
+	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		StringBuilder stringBuilder = new StringBuilder();
-		Map<String, String> sequenceMap = GenerateSequenceMap(scope, connectionTransitions);
+		Map<String, String> sequenceMap = GenerateSequenceMap(scope, connectionTransitions, outputStates);
 		if(sequenceMap.size() > 0) {
 			stringBuilder.append(GenerateTransitionConditional(scope));
 			stringBuilder.append(GenerateTransitionSequenceButtonPress(scope, sequenceMap));
@@ -21,12 +23,12 @@ public class SequenceButtonPressTransitionType extends TransitionType implements
 		return stringBuilder.toString();
 	}
 	
-	public Map<String, String> GenerateSequenceMap(String scope, Map<Connection, Transition> connectionTransitions) {
+	public Map<String, String> GenerateSequenceMap(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		Map<String, String> sequenceMap = new HashMap<String, String>();
 		for(Entry<Connection, Transition> entry : connectionTransitions.entrySet()) {
 			if(entry.getValue().getSequenceButtonPresses().containsKey(scope)) {
 				for(String sequence : entry.getValue().getSequenceButtonPresses().get(scope).getSequences()) {
-					sequenceMap.put(sequence, entry.getKey().getConnectionTo().getStateId());
+					sequenceMap.put(sequence, entry.getKey().getConnectionTo().stateType.name() + "_" + (outputStates.indexOf(entry.getKey().getConnectionTo()) + 1));
 				}
 			}
 		}

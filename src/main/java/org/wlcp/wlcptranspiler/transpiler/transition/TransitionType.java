@@ -1,14 +1,17 @@
 package org.wlcp.wlcptranspiler.transpiler.transition;
 
+
+import java.util.List;
 import java.util.Map;
 
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 
 public class TransitionType implements ITransitionType {
 
 	@Override
-	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions) {
+	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
 		return "";
 	}
 	

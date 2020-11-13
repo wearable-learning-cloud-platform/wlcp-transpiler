@@ -135,7 +135,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	private void GenerateSingleConnectionNoTransition(State state, Connection connection) {
 		GenerateMethodSignature(state);
 		GenerateOutputState(state);
-		stringBuilder.append("      " + "this.state = states." + connection.getConnectionTo().getStateId() + ";\n");
+		stringBuilder.append("      " + "this.state = states." + state.stateType.name() + "_" + (outputStates.indexOf(connection.connectionTo) + 1) + ";\n");
 		stringBuilder.append("   " + "},\n\n");
 	}
 	
@@ -152,7 +152,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		for(String s : TranspilerHelpers.GenerateScope(game.getTeamCount(), game.getPlayersPerTeam())) {
 			if(TranspilerHelpers.stateContainsScope(s, nextState)) {
 				stringBuilder.append(StateType.GenerateStateConditional(s));
-				stringBuilder.append("         " + "this.state = states." + nextState.getStateId() + ";\n");
+				stringBuilder.append("         " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
 				stringBuilder.append(StateType.GenerateEndStateConditional(s));
 			}
 		}
@@ -174,13 +174,17 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	private void GenerateTransition(Map<Connection, Transition> connectionTransitions) {
 		for(String s : TranspilerHelpers.GenerateScope(game.getTeamCount(), game.getPlayersPerTeam())) {
 			for(ITransitionType transitionType : transitionTypes) {
-				stringBuilder.append(transitionType.GenerateTranstion(s, connectionTransitions));
+				stringBuilder.append(transitionType.GenerateTranstion(s, connectionTransitions, outputStates));
 			}
 		}
 	}
 	
 	private void GenerateMethodSignature(State state) {
-		stringBuilder.append("   " + state.getStateId() + " : function() {\n");
+		if(state instanceof StartState) {
+			stringBuilder.append("   " + state.stateType.name() + "_0" + " : function() {\n");
+		} else {
+			stringBuilder.append("   " + state.stateType.name() + "_" + (outputStates.indexOf(state) + 1) + " : function() {\n");
+		}
 	}
 
 }

@@ -22,12 +22,12 @@ public class GenerateStateMachineStep implements ITranspilerStep {
 		stringBuilder.append("      " + "switch(state) {\n");
 		for(int stateCount = 0; stateCount < outputStates.size() + 1; stateCount++) {
 			if(stateCount == 0) {
-				stringBuilder.append("         " + "case states." + startState.getStateId() +":\n");
-				stringBuilder.append("            " + "this." + startState.getStateId() + "();\n");
+				stringBuilder.append("         " + "case states." + startState.stateType.name() + "_0" +":\n");
+				stringBuilder.append("            " + "this." + startState.stateType.name() + "_0" + "();\n");
 				stringBuilder.append("            " + "break;\n");
 			} else {
-				stringBuilder.append("         " + "case states." + outputStates.get(stateCount - 1).getStateId() +":\n");
-				stringBuilder.append("            " + "this." + outputStates.get(stateCount - 1).getStateId() + "();\n");
+				stringBuilder.append("         " + "case states." + outputStates.get(stateCount - 1).stateType.name() + "_" + stateCount +":\n");
+				stringBuilder.append("            " + "this." + outputStates.get(stateCount - 1).stateType.name() + "_" + stateCount + "();\n");
 				stringBuilder.append("            " + "break;\n");
 			}
 		}

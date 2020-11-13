@@ -22,9 +22,9 @@ public class GenerateStateEnumStep implements ITranspilerStep {
 			if(stateCount == 0) {
 				//Special case for start state
 				stringBuilder.append("var states = {\n");
-				stringBuilder.append("   " + startState.getStateId() + " : " + stateCount +",\n");
+				stringBuilder.append("   " + startState.stateType.name() + "_" + stateCount + " : " + stateCount +",\n");
 			} else {
-				stringBuilder.append("   " + outputStates.get(stateCount - 1).getStateId() + " : " + stateCount +",\n");
+				stringBuilder.append("   " + outputStates.get(stateCount - 1).stateType.name() + "_" + stateCount + " : " + stateCount +",\n");
 			}
 		}
 		stringBuilder.append("};");
