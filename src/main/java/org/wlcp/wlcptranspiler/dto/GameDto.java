@@ -65,12 +65,16 @@ public class GameDto {
 		public String description;
 		public Map<String, String> displayText;
 		public Map<String, PictureOutput> pictureOutputs;
+		public Map<String, SoundOutput> soundOutputs;
 		
 		public Map<String, String> getDisplayText() {
 			return displayText;
 		}
 		public Map<String, PictureOutput> getPictureOutputs() {
 			return pictureOutputs;
+		}
+		public Map<String, SoundOutput> getSoundOutputs() {
+			return soundOutputs;
 		}
 	}
 	
@@ -83,6 +87,14 @@ public class GameDto {
 		}
 		public Integer getScale() {
 			return scale;
+		}
+	}
+	
+	public static class SoundOutput {
+		public String url;
+		
+		public String getUrl() {
+			return url;
 		}
 	}
 	
