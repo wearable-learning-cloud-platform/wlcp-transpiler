@@ -54,7 +54,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean stateContainsScope(String scope, OutputState state) {
-		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope)) {
+		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope) || state.getVideoOutputs().containsKey(scope)) {
 			return true;
 		}
 		return false;
@@ -68,7 +68,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean stateContainsNoScopes(OutputState state) {
-		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0) {
+		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0 && state.getVideoOutputs().size() == 0) {
 			return true;
 		}
 		return false;

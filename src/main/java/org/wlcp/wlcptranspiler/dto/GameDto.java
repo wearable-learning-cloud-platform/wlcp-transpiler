@@ -66,6 +66,7 @@ public class GameDto {
 		public Map<String, String> displayText;
 		public Map<String, PictureOutput> pictureOutputs;
 		public Map<String, SoundOutput> soundOutputs;
+		public Map<String, VideoOutput> videoOutputs;
 		
 		public Map<String, String> getDisplayText() {
 			return displayText;
@@ -76,6 +77,9 @@ public class GameDto {
 		public Map<String, SoundOutput> getSoundOutputs() {
 			return soundOutputs;
 		}
+		public Map<String, VideoOutput> getVideoOutputs() {
+			return videoOutputs;
+		}	
 	}
 	
 	public static class PictureOutput {
@@ -91,6 +95,14 @@ public class GameDto {
 	}
 	
 	public static class SoundOutput {
+		public String url;
+		
+		public String getUrl() {
+			return url;
+		}
+	}
+	
+	public static class VideoOutput {
 		public String url;
 		
 		public String getUrl() {
