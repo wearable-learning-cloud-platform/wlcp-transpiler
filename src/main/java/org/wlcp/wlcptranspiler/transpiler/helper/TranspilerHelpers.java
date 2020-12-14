@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
 import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
@@ -54,7 +55,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean stateContainsScope(String scope, OutputState state) {
-		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope) || state.getVideoOutputs().containsKey(scope)) {
+		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope) || state.getVideoOutputs().containsKey(scope) || state.getGlobalVariables().containsKey(scope)) {
 			return true;
 		}
 		return false;
@@ -68,7 +69,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean stateContainsNoScopes(OutputState state) {
-		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0 && state.getVideoOutputs().size() == 0) {
+		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0 && state.getVideoOutputs().size() == 0 && state.getGlobalVariables().size() == 0) {
 			return true;
 		}
 		return false;
@@ -109,6 +110,16 @@ public class TranspilerHelpers {
 		returnString = returnString.replace("\'", "\\\'");
 		returnString = returnString.replace("\n", "\\n");
 		returnString = returnString.replace("\r", "\\r");
-		return returnString;
+		return evaluate(returnString);
+	}
+	
+	private static String evaluate(String input) {
+		String[] evals = StringUtils.substringsBetween(input, "$eval(", ")");
+		if(evals != null ) {
+			for(int i = 0; i < evals.length; i++) {
+				input = input.replace("$eval(" + evals[i] + ")", "\" + this.playerVM.getGlobalVariable(\"" + evals[i].split(" ")[0] +"\") + \"");
+			}
+		}
+		return input;
 	}
 }

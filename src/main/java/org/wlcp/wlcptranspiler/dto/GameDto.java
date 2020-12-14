@@ -57,7 +57,27 @@ public class GameDto {
 	}
 	
 	public static class StartState extends State {
+		public List<GlobalVariable> globalVariables;
 		public StartState() { }
+		public List<GlobalVariable> getGlobalVariables() {
+			return globalVariables;
+		}
+	}
+	
+	public static class GlobalVariable {
+		public String name;
+		public String type;
+		public String defaultValue;
+		
+		public String getName() {
+			return name;
+		}
+		public String getType() {
+			return type;
+		}
+		public String getDefaultValue() {
+			return defaultValue;
+		}	
 	}
 	
 	public static class OutputState extends State {
@@ -67,6 +87,7 @@ public class GameDto {
 		public Map<String, PictureOutput> pictureOutputs;
 		public Map<String, SoundOutput> soundOutputs;
 		public Map<String, VideoOutput> videoOutputs;
+		public Map<String, GlobalVariableOutput> globalVariables;
 		
 		public Map<String, String> getDisplayText() {
 			return displayText;
@@ -79,7 +100,11 @@ public class GameDto {
 		}
 		public Map<String, VideoOutput> getVideoOutputs() {
 			return videoOutputs;
+		}
+		public Map<String, GlobalVariableOutput> getGlobalVariables() {
+			return globalVariables;
 		}	
+		
 	}
 	
 	public static class PictureOutput {
@@ -108,6 +133,17 @@ public class GameDto {
 		public String getUrl() {
 			return url;
 		}
+	}
+	
+	public static class GlobalVariableOutput {
+		public String scope;
+		public List<GlobalVariableOutputModifier> variableModifiers;
+	}
+	
+	public static class GlobalVariableOutputModifier {
+		public String variableName;
+		public String operator;
+		public String value;
 	}
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "connectionId")

@@ -14,6 +14,7 @@ import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
 import org.wlcp.wlcptranspiler.transpiler.helper.TranspilerHelpers;
 import org.wlcp.wlcptranspiler.transpiler.state.DisplayPhotoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.DisplayTextStateType;
+import org.wlcp.wlcptranspiler.transpiler.state.GlobalVariableStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.IStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.NoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.PlaySoundStateType;
@@ -65,6 +66,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	}
 	
 	private void SetupTypes() {
+		stateTypes.add(new GlobalVariableStateType(startState));
 		stateTypes.add(new NoStateType());
 		stateTypes.add(new DisplayTextStateType());
 		stateTypes.add(new DisplayPhotoStateType());
