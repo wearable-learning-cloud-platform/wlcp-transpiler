@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.GlobalVariableInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.SequenceButtonPress;
@@ -49,6 +50,7 @@ public class TranspilerHelpers {
 		transition.singleButtonPresses = new HashMap<String, SingleButtonPress>();
 		transition.sequenceButtonPresses = new HashMap<String, SequenceButtonPress>();
 		transition.keyboardInputs = new HashMap<String, KeyboardInput>();
+		transition.globalVariables = new HashMap<String, GlobalVariableInput>();
 		HashMap<Connection, Transition> connectionTransitions = new HashMap<Connection, Transition>(); 
 		connectionTransitions.put(new Connection(), transition);
 		return connectionTransitions;
@@ -62,7 +64,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionContainsScope(String scope, Transition transition) {
-		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope)) {
+		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getGlobalVariables().containsKey(scope)) {
 			return true;
 		}
 		return false;
@@ -76,7 +78,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionConatainsNoScopes(Transition transition) {
-		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0) {
+		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getGlobalVariables().size() == 0) {
 			return true;
 		}
 		return false;

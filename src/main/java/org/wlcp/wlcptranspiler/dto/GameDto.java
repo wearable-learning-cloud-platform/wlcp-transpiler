@@ -173,6 +173,7 @@ public class GameDto {
 		public Map<String, SingleButtonPress> singleButtonPresses;
 		public Map<String, SequenceButtonPress> sequenceButtonPresses;
 		public Map<String, KeyboardInput> keyboardInputs;
+		public Map<String, GlobalVariableInput> globalVariables;
 		
 		public Connection getConnection() {
 			return connection;
@@ -188,6 +189,10 @@ public class GameDto {
 		public Map<String, KeyboardInput> getKeyboardInputs() {
 			return keyboardInputs;
 		}
+		public Map<String, GlobalVariableInput> getGlobalVariables() {
+			return globalVariables;
+		}
+		
 	}
 	
 	public static class SingleButtonPress {
@@ -226,6 +231,18 @@ public class GameDto {
 		public List<String> getKeyboardInputs() {
 			return keyboardInputs;
 		}
+	}
+	
+	public static class GlobalVariableInput {
+		public String scope;
+		public List<GlobalVariableInputModifier> globalVariableInputModifiers;
+	}
+	
+	public static class GlobalVariableInputModifier {
+		public String variableName;
+		public String operator;
+		public String value;
+		public String logicalOperator;
 	}
 	
 }

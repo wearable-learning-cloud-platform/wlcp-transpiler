@@ -20,6 +20,7 @@ import org.wlcp.wlcptranspiler.transpiler.state.NoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.PlaySoundStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.PlayVideoStateType;
 import org.wlcp.wlcptranspiler.transpiler.state.StateType;
+import org.wlcp.wlcptranspiler.transpiler.transition.GlobalVariableTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.ITransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.KeyboardInputTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.NoTransitionType;
@@ -76,6 +77,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		transitionTypes.add(new SingleButtonPressTransitionType());
 		transitionTypes.add(new SequenceButtonPressTransitionType());
 		transitionTypes.add(new KeyboardInputTransitionType());
+		transitionTypes.add(new GlobalVariableTransitionType());
 	}
 	
 	private void GenerateFunctions(State state) {
