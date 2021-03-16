@@ -137,6 +137,7 @@ public class GameDto {
 		public Map<String, SingleButtonPress> singleButtonPresses;
 		public Map<String, SequenceButtonPress> sequenceButtonPresses;
 		public Map<String, KeyboardInput> keyboardInputs;
+		public Map<String, TimerDuration> timerDurations;
 		
 		public Connection getConnection() {
 			return connection;
@@ -152,6 +153,10 @@ public class GameDto {
 		public Map<String, KeyboardInput> getKeyboardInputs() {
 			return keyboardInputs;
 		}
+		public Map<String, TimerDuration> getTimerDurations() {
+			return timerDurations;
+		}
+		
 	}
 	
 	public static class SingleButtonPress {
@@ -189,6 +194,14 @@ public class GameDto {
 		
 		public List<String> getKeyboardInputs() {
 			return keyboardInputs;
+		}
+	}
+	
+	public static class TimerDuration {
+		public Integer duration;
+		
+		public Integer getDuration() {
+			return duration;
 		}
 	}
 	
