@@ -138,6 +138,7 @@ public class GameDto {
 		public Map<String, SequenceButtonPress> sequenceButtonPresses;
 		public Map<String, KeyboardInput> keyboardInputs;
 		public Map<String, TimerDuration> timerDurations;
+		public Map<String, Randoms> randoms;
 		
 		public Connection getConnection() {
 			return connection;
@@ -149,12 +150,14 @@ public class GameDto {
 		public Map<String, SequenceButtonPress> getSequenceButtonPresses() {
 			return sequenceButtonPresses;
 		}
-
 		public Map<String, KeyboardInput> getKeyboardInputs() {
 			return keyboardInputs;
 		}
 		public Map<String, TimerDuration> getTimerDurations() {
 			return timerDurations;
+		}
+		public Map<String, Randoms> getRandoms() {
+			return randoms;
 		}
 		
 	}
@@ -202,6 +205,14 @@ public class GameDto {
 		
 		public Integer getDuration() {
 			return duration;
+		}
+	}
+	
+	public static class Randoms {
+		public boolean randomEnabled;
+		
+		public boolean getRandomEnabled() {
+			return randomEnabled;
 		}
 	}
 	

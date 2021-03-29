@@ -8,6 +8,7 @@ import java.util.Map;
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
 import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
+import org.wlcp.wlcptranspiler.dto.GameDto.Randoms;
 import org.wlcp.wlcptranspiler.dto.GameDto.SequenceButtonPress;
 import org.wlcp.wlcptranspiler.dto.GameDto.SingleButtonPress;
 import org.wlcp.wlcptranspiler.dto.GameDto.State;
@@ -50,6 +51,7 @@ public class TranspilerHelpers {
 		transition.sequenceButtonPresses = new HashMap<String, SequenceButtonPress>();
 		transition.keyboardInputs = new HashMap<String, KeyboardInput>();
 		transition.timerDurations = new HashMap<String, TimerDuration>();
+		transition.randoms = new HashMap<String, Randoms>();
 		HashMap<Connection, Transition> connectionTransitions = new HashMap<Connection, Transition>(); 
 		connectionTransitions.put(new Connection(), transition);
 		return connectionTransitions;
@@ -63,7 +65,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionContainsScope(String scope, Transition transition) {
-		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getTimerDurations().containsKey(scope)) {
+		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getTimerDurations().containsKey(scope) || transition.getRandoms().containsKey(scope)) {
 			return true;
 		}
 		return false;
@@ -77,7 +79,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionConatainsNoScopes(Transition transition) {
-		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getTimerDurations().size() == 0) {
+		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getTimerDurations().size() == 0 && transition.getRandoms().size() == 0) {
 			return true;
 		}
 		return false;
