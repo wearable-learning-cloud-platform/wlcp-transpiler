@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.wlcp.wlcptranspiler.dto.GameDto;
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Transition;
@@ -13,7 +14,7 @@ import org.wlcp.wlcptranspiler.transpiler.helper.TranspilerHelpers;
 public class KeyboardInputTransitionType extends TransitionType implements ITransitionType {
 	
 	@Override
-	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates) {
+	public String GenerateTranstion(String scope, Map<Connection, Transition> connectionTransitions, List<OutputState> outputStates, GameDto game) {
 		StringBuilder stringBuilder = new StringBuilder();
 		Map<String, String> keyboardInputMap = GenerateKeyboardInputMap(scope, connectionTransitions, outputStates);
 		if(keyboardInputMap.size() > 0) {
