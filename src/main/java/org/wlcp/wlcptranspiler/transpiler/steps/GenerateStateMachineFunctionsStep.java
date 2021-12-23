@@ -76,7 +76,6 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		transitionTypes.add(new SingleButtonPressTransitionType());
 		transitionTypes.add(new SequenceButtonPressTransitionType());
 		transitionTypes.add(new KeyboardInputTransitionType());
-		transitionTypes.add(new TimerDurationTransitionType());
 		transitionTypes.add(new RandomTransitionType());
 	}
 	
@@ -182,8 +181,9 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 	
 	private void GenerateTransition(Map<Connection, Transition> connectionTransitions) {
 		for(String s : TranspilerHelpers.GenerateScope(game.getTeamCount(), game.getPlayersPerTeam())) {
+			stringBuilder.append(new TimerDurationTransitionType().GenerateTranstion(s, connectionTransitions, outputStates, game)); //Always run timer ahead of others
 			for(ITransitionType transitionType : transitionTypes) {
-				stringBuilder.append(transitionType.GenerateTranstion(s, connectionTransitions, outputStates));
+				stringBuilder.append(transitionType.GenerateTranstion(s, connectionTransitions, outputStates, game));
 			}
 		}
 	}
