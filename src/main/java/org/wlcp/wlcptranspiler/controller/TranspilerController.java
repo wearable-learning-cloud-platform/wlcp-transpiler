@@ -23,8 +23,13 @@ public class TranspilerController {
 	private JavaScriptTranspilerServiceImpl javaScriptTranspilerServiceImpl;
 
 	@GetMapping(value="/transpileGame", produces="application/javascript")
-	public ResponseEntity<String> transpile(@RequestParam("gameId") String gameId) {
-		GameDto gameDto = gameFeignClient.getGame(gameId, SecurityConstants.JWT_TOKEN);
+	public ResponseEntity<String> transpile(@RequestParam("gameId") String gameId, @RequestParam("archivedGame") boolean archivedGame) {
+		GameDto gameDto = null;
+		if(!archivedGame) {
+			gameDto = gameFeignClient.getGame(gameId, SecurityConstants.JWT_TOKEN);
+		} else {
+			gameDto = gameFeignClient.getArchivedGame(gameId, SecurityConstants.JWT_TOKEN);
+		}
 		return new ResponseEntity<String>(javaScriptTranspilerServiceImpl.transpile(gameDto), HttpStatus.OK);
 	}
 }
