@@ -10,6 +10,7 @@ import org.wlcp.wlcptranspiler.dto.GameDto.StartState;
 import org.wlcp.wlcptranspiler.dto.GameDto.State;
 import org.wlcp.wlcptranspiler.dto.GameDto.StateType;
 import org.wlcp.wlcptranspiler.service.TranspilerService;
+import org.wlcp.wlcptranspiler.transpiler.steps.GenerateGlobalVariablesStep;
 import org.wlcp.wlcptranspiler.transpiler.steps.GenerateNameSpaceAndVariablesStep;
 import org.wlcp.wlcptranspiler.transpiler.steps.GenerateSetGameVariablesStep;
 import org.wlcp.wlcptranspiler.transpiler.steps.GenerateStartFunctionStep;
@@ -59,6 +60,7 @@ public class JavaScriptTranspilerServiceImpl implements TranspilerService {
 		
 		transpilerSteps.add(new GenerateStateEnumStep(startState, outputStates));
 		transpilerSteps.add(new GenerateNameSpaceAndVariablesStep(startState));
+		transpilerSteps.add(new GenerateGlobalVariablesStep(startState));
 		transpilerSteps.add(new GenerateStartFunctionStep());
 		transpilerSteps.add(new GenerateStateMachineStep(startState, outputStates));
 		transpilerSteps.add(new GenerateStateMachineFunctionsStep(gameDto, startState, outputStates, gameDto.connections, gameDto.transitions));

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
+import org.wlcp.wlcptranspiler.dto.GameDto.GlobalVariableInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
 import org.wlcp.wlcptranspiler.dto.GameDto.Randoms;
@@ -52,34 +54,35 @@ public class TranspilerHelpers {
 		transition.keyboardInputs = new HashMap<String, KeyboardInput>();
 		transition.timerDurations = new HashMap<String, TimerDuration>();
 		transition.randoms = new HashMap<String, Randoms>();
+		transition.globalVariables = new HashMap<String, GlobalVariableInput>();
 		HashMap<Connection, Transition> connectionTransitions = new HashMap<Connection, Transition>(); 
 		connectionTransitions.put(new Connection(), transition);
 		return connectionTransitions;
 	}
 	
 	public static boolean stateContainsScope(String scope, OutputState state) {
-		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope) || state.getVideoOutputs().containsKey(scope)) {
+		if(state.getDisplayText().containsKey(scope) || state.getPictureOutputs().containsKey(scope) || state.getSoundOutputs().containsKey(scope) || state.getVideoOutputs().containsKey(scope) || state.getGlobalVariables().containsKey(scope)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean transitionContainsScope(String scope, Transition transition) {
-		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getTimerDurations().containsKey(scope) || transition.getRandoms().containsKey(scope)) {
+		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getTimerDurations().containsKey(scope) || transition.getRandoms().containsKey(scope) || transition.getGlobalVariables().containsKey(scope)) {
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean stateContainsNoScopes(OutputState state) {
-		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0 && state.getVideoOutputs().size() == 0) {
+		if(state.getDisplayText().size() == 0 && state.getPictureOutputs().size() == 0 && state.getSoundOutputs().size() == 0 && state.getVideoOutputs().size() == 0 && state.getGlobalVariables().size() == 0) {
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean transitionConatainsNoScopes(Transition transition) {
-		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getTimerDurations().size() == 0 && transition.getRandoms().size() == 0) {
+		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getTimerDurations().size() == 0 && transition.getRandoms().size() == 0 && transition.getGlobalVariables().size() == 0) {
 			return true;
 		}
 		return false;
@@ -113,6 +116,16 @@ public class TranspilerHelpers {
 		returnString = returnString.replace("\'", "\\\'");
 		returnString = returnString.replace("\n", "\\n");
 		returnString = returnString.replace("\r", "\\r");
-		return returnString;
+		return evaluate(returnString);
+	}
+	
+	private static String evaluate(String input) {
+		String[] evals = StringUtils.substringsBetween(input, "$eval(", ")");
+		if(evals != null ) {
+			for(int i = 0; i < evals.length; i++) {
+				input = input.replace("$eval(" + evals[i] + ")", "\" + this.playerVM.getGlobalVariable(\"" + evals[i].split(" ")[0] +"\") + \"");
+			}
+		}
+		return input;
 	}
 }
