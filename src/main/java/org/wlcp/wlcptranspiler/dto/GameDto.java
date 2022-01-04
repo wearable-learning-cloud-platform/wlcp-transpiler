@@ -137,12 +137,29 @@ public class GameDto {
 	public static class GlobalVariableOutput {
 		public String scope;
 		public List<GlobalVariableOutputModifier> globalVariableOutputModifiers;
+		
+		public String getScope() {
+			return scope;
+		}
+		public List<GlobalVariableOutputModifier> getGlobalVariableOutputModifiers() {
+			return globalVariableOutputModifiers;
+		}	
 	}
 
 	public static class GlobalVariableOutputModifier {
 		public String variableName;
 		public String operator;
 		public String value;
+		
+		public String getVariableName() {
+			return variableName;
+		}
+		public String getOperator() {
+			return operator;
+		}
+		public String getValue() {
+			return value;
+		}
 	}
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "connectionId")
@@ -298,6 +315,13 @@ public class GameDto {
 	public static class GlobalVariableInput {
 		public String scope;
 		public List<GlobalVariableInputModifier> globalVariableInputModifiers;
+		
+		public String getScope() {
+			return scope;
+		}
+		public List<GlobalVariableInputModifier> getGlobalVariableInputModifiers() {
+			return globalVariableInputModifiers;
+		}
 	}
 
 	public static class GlobalVariableInputModifier {
@@ -305,6 +329,19 @@ public class GameDto {
 		public String operator;
 		public String value;
 		public String logicalOperator;
+		
+		public String getVariableName() {
+			return variableName;
+		}
+		public String getOperator() {
+			return operator;
+		}
+		public String getValue() {
+			return value;
+		}
+		public String getLogicalOperator() {
+			return logicalOperator;
+		}
 	}
 	
 }
