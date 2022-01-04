@@ -57,7 +57,27 @@ public class GameDto {
 	}
 	
 	public static class StartState extends State {
+		public List<GlobalVariable> globalVariables;
 		public StartState() { }
+		public List<GlobalVariable> getGlobalVariables() {
+			return globalVariables;
+		}
+	}
+	
+	public static class GlobalVariable {
+		public String name;
+		public String type;
+		public String defaultValue;
+
+		public String getName() {
+			return name;
+		}
+		public String getType() {
+			return type;
+		}
+		public String getDefaultValue() {
+			return defaultValue;
+		}	
 	}
 	
 	public static class OutputState extends State {
@@ -67,6 +87,7 @@ public class GameDto {
 		public Map<String, PictureOutput> pictureOutputs;
 		public Map<String, SoundOutput> soundOutputs;
 		public Map<String, VideoOutput> videoOutputs;
+		public Map<String, GlobalVariableOutput> globalVariables;
 		
 		public Map<String, String> getDisplayText() {
 			return displayText;
@@ -79,6 +100,9 @@ public class GameDto {
 		}
 		public Map<String, VideoOutput> getVideoOutputs() {
 			return videoOutputs;
+		}	
+		public Map<String, GlobalVariableOutput> getGlobalVariables() {
+			return globalVariables;
 		}	
 	}
 	
@@ -107,6 +131,34 @@ public class GameDto {
 		
 		public String getUrl() {
 			return url;
+		}
+	}
+	
+	public static class GlobalVariableOutput {
+		public String scope;
+		public List<GlobalVariableOutputModifier> globalVariableOutputModifiers;
+		
+		public String getScope() {
+			return scope;
+		}
+		public List<GlobalVariableOutputModifier> getGlobalVariableOutputModifiers() {
+			return globalVariableOutputModifiers;
+		}	
+	}
+
+	public static class GlobalVariableOutputModifier {
+		public String variableName;
+		public String operator;
+		public String value;
+		
+		public String getVariableName() {
+			return variableName;
+		}
+		public String getOperator() {
+			return operator;
+		}
+		public String getValue() {
+			return value;
 		}
 	}
 	
@@ -139,6 +191,7 @@ public class GameDto {
 		public Map<String, KeyboardInput> keyboardInputs;
 		public Map<String, TimerDuration> timerDurations;
 		public Map<String, Randoms> randoms;
+		public Map<String, GlobalVariableInput> globalVariables;
 		
 		public Connection getConnection() {
 			return connection;
@@ -158,6 +211,9 @@ public class GameDto {
 		}
 		public Map<String, Randoms> getRandoms() {
 			return randoms;
+		}
+		public Map<String, GlobalVariableInput> getGlobalVariables() {
+			return globalVariables;
 		}
 		
 	}
@@ -253,6 +309,38 @@ public class GameDto {
 		
 		public boolean getRandomEnabled() {
 			return randomEnabled;
+		}
+	}
+	
+	public static class GlobalVariableInput {
+		public String scope;
+		public List<GlobalVariableInputModifier> globalVariableInputModifiers;
+		
+		public String getScope() {
+			return scope;
+		}
+		public List<GlobalVariableInputModifier> getGlobalVariableInputModifiers() {
+			return globalVariableInputModifiers;
+		}
+	}
+
+	public static class GlobalVariableInputModifier {
+		public String variableName;
+		public String operator;
+		public String value;
+		public String logicalOperator;
+		
+		public String getVariableName() {
+			return variableName;
+		}
+		public String getOperator() {
+			return operator;
+		}
+		public String getValue() {
+			return value;
+		}
+		public String getLogicalOperator() {
+			return logicalOperator;
 		}
 	}
 	
