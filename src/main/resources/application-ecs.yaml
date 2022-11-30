@@ -16,3 +16,5 @@ feign:
         connectTimeout: 60000
         readTimeout: 60000
 wlcp-api-url:
+security:
+  jwt-token: ${JWT_TOKEN}
