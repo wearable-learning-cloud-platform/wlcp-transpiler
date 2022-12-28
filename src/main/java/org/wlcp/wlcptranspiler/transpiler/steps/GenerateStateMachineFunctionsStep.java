@@ -140,7 +140,10 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		GenerateMethodSignature(state);
 		GenerateOutputState(state);
 		GenerateTransition(TranspilerHelpers.createEmptyTransition());
-		stringBuilder.append("      this.state = -1;\n");
+		int index = stringBuilder.lastIndexOf("      this.state = -1;\n");
+		if(index == -1) {
+			stringBuilder.append("      this.state = -1;\n");
+		}
 		stringBuilder.append("   " + "},\n\n");
 	}
 	
