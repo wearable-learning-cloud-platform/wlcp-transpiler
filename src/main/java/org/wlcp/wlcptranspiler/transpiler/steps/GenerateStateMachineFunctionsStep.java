@@ -164,7 +164,11 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		for(String s : TranspilerHelpers.GenerateScope(game.getTeamCount(), game.getPlayersPerTeam())) {
 			if(TranspilerHelpers.stateContainsScope(s, nextState)) {
 				stringBuilder.append(StateType.GenerateStateConditional(s));
-				stringBuilder.append("         " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				if(s.equals("Game Wide")) {
+					stringBuilder.append("      " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				} else {
+					stringBuilder.append("         " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				}
 				stringBuilder.append(StateType.GenerateEndStateConditional(s));
 			}
 		}
