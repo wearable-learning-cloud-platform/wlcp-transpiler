@@ -39,6 +39,7 @@ public class NoTransitionType extends TransitionType implements ITransitionType 
 		if(scope.equals("Game Wide")) {
 			if(emptyTransition && !containsGameWide) {
 				stringBuilder.append("      " + "this.playerVM.NoTransition();\n");
+				stringBuilder.append("      " + "this.state = -1;\n");
 			}
 		} else if(scope.contains("Team") && !scope.contains("Player") && !emptyTransition && !containsGameWide && !containsScopes) {					
 			noTransition(stringBuilder, scope, !containsScopes(game, scope, connectionTransitions, false));
@@ -85,6 +86,7 @@ public class NoTransitionType extends TransitionType implements ITransitionType 
 		if(condition) {
 			stringBuilder.append(StateType.GenerateStateConditional(scope));
 			stringBuilder.append("         " + "this.playerVM.NoTransition();\n");
+			stringBuilder.append("         " + "this.state = -1;\n");
 			stringBuilder.append(StateType.GenerateEndStateConditional(scope));
 		}
 	}
