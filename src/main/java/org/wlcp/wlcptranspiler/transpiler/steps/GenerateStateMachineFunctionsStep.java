@@ -140,7 +140,10 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		GenerateMethodSignature(state);
 		GenerateOutputState(state);
 		GenerateTransition(TranspilerHelpers.createEmptyTransition());
-		stringBuilder.append("      this.state = -1;\n");
+		int index = stringBuilder.lastIndexOf("      this.state = -1;\n");
+		if(index == -1) {
+			stringBuilder.append("      this.state = -1;\n");
+		}
 		stringBuilder.append("   " + "},\n\n");
 	}
 	
@@ -164,7 +167,11 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		for(String s : TranspilerHelpers.GenerateScope(game.getTeamCount(), game.getPlayersPerTeam())) {
 			if(TranspilerHelpers.stateContainsScope(s, nextState)) {
 				stringBuilder.append(StateType.GenerateStateConditional(s));
-				stringBuilder.append("         " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				if(s.equals("Game Wide")) {
+					stringBuilder.append("      " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				} else {
+					stringBuilder.append("         " + "this.state = states." + nextState.stateType.name() + "_" + (outputStates.indexOf(nextState) + 1) + ";\n");
+				}
 				stringBuilder.append(StateType.GenerateEndStateConditional(s));
 			}
 		}
