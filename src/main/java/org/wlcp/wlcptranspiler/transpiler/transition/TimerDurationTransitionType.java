@@ -71,7 +71,8 @@ public class TimerDurationTransitionType extends TransitionType implements ITran
 	private boolean allDelay(String scope, Transition transition) {
 		if ((transition.getTimerDurations().containsKey(scope) && !transition.getSingleButtonPresses().containsKey(scope)
 				&& !transition.getSequenceButtonPresses().containsKey(scope)
-				&& !transition.getKeyboardInputs().containsKey(scope)) || !TranspilerHelpers.transitionContainsScope(scope, transition)) {
+				&& !transition.getKeyboardInputs().containsKey(scope)
+				&& !transition.getPhotoChecks().containsKey(scope)) || !TranspilerHelpers.transitionContainsScope(scope, transition)) {
 			return true;
 		}
 		return false;

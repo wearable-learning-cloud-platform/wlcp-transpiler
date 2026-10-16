@@ -189,6 +189,7 @@ public class GameDto {
 		public Map<String, SingleButtonPress> singleButtonPresses;
 		public Map<String, SequenceButtonPress> sequenceButtonPresses;
 		public Map<String, KeyboardInput> keyboardInputs;
+		public Map<String, PhotoCheck> photoChecks;
 		public Map<String, TimerDuration> timerDurations;
 		public Map<String, Randoms> randoms;
 		public Map<String, GlobalVariableInput> globalVariables;
@@ -205,6 +206,9 @@ public class GameDto {
 		}
 		public Map<String, KeyboardInput> getKeyboardInputs() {
 			return keyboardInputs;
+		}
+		public Map<String, PhotoCheck> getPhotoChecks() {
+			return photoChecks;
 		}
 		public Map<String, TimerDuration> getTimerDurations() {
 			return timerDurations;
@@ -296,6 +300,20 @@ public class GameDto {
 		}
 	}
 	
+	public static class PhotoCheck {
+		public String modelUrl;
+		public String targetClass;
+		public Double threshold;
+		public String getModelUrl() {
+			return modelUrl;
+		}
+		public String getTargetClass() {
+			return targetClass;
+		}
+		public Double getThreshold() {
+			return threshold;
+		}
+	}
 	public static class TimerDuration {
 		public Integer duration;
 		

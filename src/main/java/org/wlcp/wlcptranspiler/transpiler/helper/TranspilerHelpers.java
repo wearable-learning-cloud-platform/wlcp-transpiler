@@ -10,6 +10,7 @@ import org.wlcp.wlcptranspiler.dto.GameDto.Connection;
 import org.wlcp.wlcptranspiler.dto.GameDto.GlobalVariableInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.KeyboardInput;
 import org.wlcp.wlcptranspiler.dto.GameDto.OutputState;
+import org.wlcp.wlcptranspiler.dto.GameDto.PhotoCheck;
 import org.wlcp.wlcptranspiler.dto.GameDto.Randoms;
 import org.wlcp.wlcptranspiler.dto.GameDto.SequenceButtonPress;
 import org.wlcp.wlcptranspiler.dto.GameDto.SingleButtonPress;
@@ -52,6 +53,7 @@ public class TranspilerHelpers {
 		transition.singleButtonPresses = new HashMap<String, SingleButtonPress>();
 		transition.sequenceButtonPresses = new HashMap<String, SequenceButtonPress>();
 		transition.keyboardInputs = new HashMap<String, KeyboardInput>();
+		transition.photoChecks = new HashMap<String, PhotoCheck>();
 		transition.timerDurations = new HashMap<String, TimerDuration>();
 		transition.randoms = new HashMap<String, Randoms>();
 		transition.globalVariables = new HashMap<String, GlobalVariableInput>();
@@ -68,7 +70,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionContainsScope(String scope, Transition transition) {
-		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getTimerDurations().containsKey(scope) || transition.getRandoms().containsKey(scope) || transition.getGlobalVariables().containsKey(scope)) {
+		if(transition.getSingleButtonPresses().containsKey(scope) || transition.getSequenceButtonPresses().containsKey(scope) || transition.getKeyboardInputs().containsKey(scope) || transition.getPhotoChecks().containsKey(scope) || transition.getTimerDurations().containsKey(scope) || transition.getRandoms().containsKey(scope) || transition.getGlobalVariables().containsKey(scope)) {
 			return true;
 		}
 		return false;
@@ -82,7 +84,7 @@ public class TranspilerHelpers {
 	}
 	
 	public static boolean transitionConatainsNoScopes(Transition transition) {
-		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getTimerDurations().size() == 0 && transition.getRandoms().size() == 0 && transition.getGlobalVariables().size() == 0) {
+		if(transition.getSingleButtonPresses().size() == 0 && transition.getSequenceButtonPresses().size() == 0 && transition.getKeyboardInputs().size() == 0 && transition.getPhotoChecks().size() == 0 && transition.getTimerDurations().size() == 0 && transition.getRandoms().size() == 0 && transition.getGlobalVariables().size() == 0) {
 			return true;
 		}
 		return false;

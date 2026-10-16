@@ -24,6 +24,7 @@ import org.wlcp.wlcptranspiler.transpiler.transition.GlobalVariableTransitionTyp
 import org.wlcp.wlcptranspiler.transpiler.transition.ITransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.KeyboardInputTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.NoTransitionType;
+import org.wlcp.wlcptranspiler.transpiler.transition.PhotoCheckTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.RandomTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.SequenceButtonPressTransitionType;
 import org.wlcp.wlcptranspiler.transpiler.transition.SingleButtonPressTransitionType;
@@ -79,6 +80,7 @@ public class GenerateStateMachineFunctionsStep implements ITranspilerStep {
 		transitionTypes.add(new SingleButtonPressTransitionType());
 		transitionTypes.add(new SequenceButtonPressTransitionType());
 		transitionTypes.add(new KeyboardInputTransitionType());
+		transitionTypes.add(new PhotoCheckTransitionType());
 		transitionTypes.add(new RandomTransitionType());
 		transitionTypes.add(new GlobalVariableTransitionType());
 	}
